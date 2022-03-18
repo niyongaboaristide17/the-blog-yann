@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <h3 class="title is-3">The Blogs</h3>
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item">
+                    Home
+                </a>
+
+                <a href="/blogs" class="navbar-item">
+                    Blogs
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                      <% if (user){ %>
+                        <a href="/author/articles" class="button is-primary">
+                          author panel
+                      </a>
+                        <form action="/logout?_method=DELETE" method="POST">
+                            <button class="button is-danger">Logout</button>
+                        </form>
+                        <% } else { %>
+                          <a href="/signup" class="button is-primary">
+                            <strong>Sign up</strong>
+                        </a>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+
+    </nav>
+    <div class="columns mt-6">
+        <div class="column"></div>
+        <div class="column">
+            <% if (messages.error) { %>
+                <div class="notification">
+                    <button class="delete"></button>
+                        <%= messages.error %> 
+                  </div>
+            <% } %>
+            <div class="card">
+                <div class="card-content">
+                    <p class="title">Login</p>
+                    <form action="/signin" method="post">
+                          
+                          <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                                <input class="input" type="email" placeholder="Email" name="email">
+                                <span class="icon is-small is-left">
+                                  <i class="fas fa-envelope"></i>
+                                </span>
+                              </p>
+                          </div>
+    
+                          <div class="field">
+                            <p class="control has-icons-left">
+                                <input class="input" type="password" placeholder="Password" name="password">
+                                <span class="icon is-small is-left">
+                                  <i class="fas fa-lock"></i>
+                                </span>
+                              </p>
+                          </div>
+                          <div class="field">
+                            <p class="control">
+                              <button class="button is-success">
+                                Sign In
+                              </button>
+                            </p>
+                          </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="column"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+    const $notification = $delete.parentNode;
+
+    $delete.addEventListener('click', () => {
+      $notification.parentNode.removeChild($notification);
+    });
+  });
+});
+document.addEventListener('DOMContentLoaded', () => {
+
+// Get all "navbar-burger" elements
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+// Check if there are any navbar burgers
+if ($navbarBurgers.length > 0) {
+
+  // Add a click event on each of them
+  $navbarBurgers.forEach( el => {
+    el.addEventListener('click', () => {
+
+      // Get the target from the "data-target" attribute
+      const target = el.dataset.target;
+      const $target = document.getElementById(target);
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
+
+    });
+  });
+}
+
+});
+    </script>
+</body>
+</html>
